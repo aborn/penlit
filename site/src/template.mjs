@@ -133,7 +133,8 @@ function noteSheet(mock) {
 </figure>`;
 }
 
-function hero({ hero: h, mock }) {
+function hero(locale) {
+  const { hero: h, mock, features: f } = locale.copy;
   return `<section class="hero wrap">
   <p class="label">${escapeHtml(h.eyebrow)}</p>
   <h1>${display(h.title)}<span class="lit-dot" aria-hidden="true"></span></h1>
@@ -147,6 +148,7 @@ function hero({ hero: h, mock }) {
       </p>
     </div>
   </div>
+  ${shot('editor', locale, f.shotAlt, f.shotCaption)}
 </section>
 ${noteSheet(mock)}`;
 }
@@ -188,8 +190,7 @@ function features(locale) {
   const rows = f.items
     .map((item, i) => `<li><p class="specimen" aria-hidden="true">${FEATURE_SPECIMENS[i]}</p><h3>${escapeHtml(item.title)}</h3><p>${rich(item.text)}</p></li>`)
     .join('\n        ');
-  return chapter('features', nav.features, f.title, `${shot('editor', locale, f.shotAlt, f.shotCaption)}
-      <ul class="entries">
+  return chapter('features', nav.features, f.title, `<ul class="entries">
         ${rows}
       </ul>`);
 }
@@ -254,7 +255,7 @@ ${head(locale, { title: c.title, description: c.description, indexable: true })}
 <a class="skip" href="#main">${escapeHtml(c.skip)}</a>
 ${header(locale)}
 <main id="main">
-${hero(c)}
+${hero(locale)}
 ${why(c)}
 ${features(locale)}
 ${ai(c)}
