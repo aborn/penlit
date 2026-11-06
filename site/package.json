@@ -1,0 +1,11 @@
+{
+  "name": "penlit-site",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node build.mjs && node --test \"test/*.test.mjs\"",
+    "preview": "node build.mjs && node preview.mjs"
+  }
+}
