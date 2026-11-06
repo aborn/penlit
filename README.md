@@ -25,13 +25,7 @@ Copy lives in `site/src/i18n/`, one file per language. All three files must have
 
 ### Deploy
 
-Cloudflare Pages, connected to this repository:
-
-| Setting | Value |
-|---|---|
-| Root directory | `site` |
-| Build command | `npm run build` |
-| Output directory | `dist` |
+The site runs on Cloudflare Workers static assets, connected to this repository. Each push to `main` deploys it. [`wrangler.jsonc`](wrangler.jsonc) holds the build and asset settings, so the project needs only the default `npx wrangler deploy` command. The Worker name in the dashboard must match `name` in that file.
 
 ## License
 
