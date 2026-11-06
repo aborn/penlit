@@ -70,6 +70,17 @@ test('the theme toggle stays hidden until the script is ready', async () => {
   for (const locale of LOCALES) assert.match(await page(locale), /id="theme-toggle"[^>]* hidden /);
 });
 
+test('each page shows screenshots for its language and both themes', async () => {
+  for (const locale of LOCALES) {
+    const html = await page(locale);
+    for (const theme of ['light', 'dark']) {
+      const src = `/shots/editor-${locale.code}-${theme}.webp`;
+      assert.ok(html.includes(`src="${src}"`), src);
+      await readFile(dist(src.slice(1)));
+    }
+  }
+});
+
 test('local assets exist', async () => {
   for (const file of ['mark.svg', 'theme.js', 'og.png', 'apple-touch-icon.png', 'styles.css', '404.html', 'sitemap.xml', 'robots.txt', '_headers']) {
     await readFile(dist(file));

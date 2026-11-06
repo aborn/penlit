@@ -42,6 +42,8 @@ export default {
     ],
   },
   features: {
+    shotCaption: 'macOS 版 Penlit のリッチテキストエディタ。内容はサンプルです。',
+    shotAlt: 'Penlit のエディタで開いたノート。ToDo リストと表を含む',
     title: '書くための機能がそろっています',
     items: [
       { title: '三つの書き方', text: 'Markdown ソース、ライブプレビュー、リッチテキストを切り替えられます。ファイルはずっと Markdown のままです。' },

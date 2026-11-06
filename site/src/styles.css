@@ -151,6 +151,16 @@ ins { text-decoration: none; background: linear-gradient(transparent 62%, rgb(25
 .marker { position: relative; padding-left: clamp(20px, 2.6vw, 34px); padding-top: 0.75em; }
 .marker::before { content: ""; position: absolute; left: -4px; top: calc(0.75em + 6px); width: 7px; height: 7px; border: 1px solid var(--faint); border-radius: 50%; background: var(--paper); }
 .chapter-body > h2 { margin-bottom: clamp(36px, 5vw, 64px); }
+.shot { margin-bottom: clamp(48px, 6vw, 80px); }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
+.shot figcaption { margin-top: 12px; color: var(--faint); font: 400 13px/1.5 var(--sans); }
+.shot-dark { display: none !important; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shot-light { display: none !important; }
+  :root:not([data-theme="light"]) .shot-dark { display: block !important; }
+}
+:root[data-theme="dark"] .shot-light { display: none !important; }
+:root[data-theme="dark"] .shot-dark { display: block !important; }
 
 .pillars { counter-reset: pillar; }
 .pillars li { counter-increment: pillar; display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px clamp(28px, 4vw, 56px); padding-block: clamp(24px, 3vw, 34px); border-top: 1px solid var(--line); }

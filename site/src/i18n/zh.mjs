@@ -42,6 +42,8 @@ export default {
     ],
   },
   features: {
+    shotCaption: '笔点 macOS 版的富文本编辑器，内容为示例。',
+    shotAlt: '笔点编辑器里的一篇笔记，包含待办清单和表格',
     title: '完整的写作工具',
     items: [
       { title: '三种写法', text: '在 Markdown 源码、实时预览和富文本之间切换，文件本身始终是 Markdown。' },

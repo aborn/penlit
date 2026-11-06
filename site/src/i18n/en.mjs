@@ -42,6 +42,8 @@ export default {
     ],
   },
   features: {
+    shotCaption: 'The Penlit rich text editor on macOS, in light and dark. Sample content.',
+    shotAlt: 'A note in the Penlit editor, with a to-do list and a table',
     title: 'A complete writing tool',
     items: [
       { title: 'Three ways to write', text: 'Switch between Markdown source, live preview, and rich text. The file underneath stays Markdown.' },

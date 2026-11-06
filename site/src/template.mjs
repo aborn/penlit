@@ -12,6 +12,15 @@ export const LOCALES = [
   { code: 'ja', html: 'ja', path: '/ja/', label: '日本語', name: '日本語', copy: ja },
 ];
 
+/** 真实界面截图的像素尺寸，width/height 用来占位，避免加载时页面跳动 */
+const SHOTS = {
+  editor: {
+    en: { light: [1376, 1146], dark: [1376, 1194] },
+    zh: { light: [1376, 1085], dark: [1376, 1133] },
+    ja: { light: [1376, 1099], dark: [1376, 1147] },
+  },
+};
+
 /** 功能小样：和语言无关的微型文字样本，顺序对应文案里的 features.items */
 const FEATURE_SPECIMENS = [
   '<code>**word**</code><span class="sp-arrow">→</span><strong>word</strong>',
@@ -154,6 +163,17 @@ function chapter(id, label, title, body, extraClass = '') {
 </section>`;
 }
 
+function shot(kind, locale, alt, caption) {
+  const images = ['light', 'dark'].map((theme) => {
+    const [width, height] = SHOTS[kind][locale.code][theme];
+    return `<img class="shot-${theme}" src="/shots/${kind}-${locale.code}-${theme}.webp" width="${width}" height="${height}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`;
+  });
+  return `<figure class="shot">
+        ${images.join('\n        ')}
+        <figcaption>${escapeHtml(caption)}</figcaption>
+      </figure>`;
+}
+
 function why({ nav, why: w }) {
   const rows = w.items
     .map((item) => `<li><h3>${escapeHtml(item.title)}</h3><p>${rich(item.text)}</p></li>`)
@@ -163,11 +183,13 @@ function why({ nav, why: w }) {
       </ol>`);
 }
 
-function features({ nav, features: f }) {
+function features(locale) {
+  const { nav, features: f } = locale.copy;
   const rows = f.items
     .map((item, i) => `<li><p class="specimen" aria-hidden="true">${FEATURE_SPECIMENS[i]}</p><h3>${escapeHtml(item.title)}</h3><p>${rich(item.text)}</p></li>`)
     .join('\n        ');
-  return chapter('features', nav.features, f.title, `<ul class="entries">
+  return chapter('features', nav.features, f.title, `${shot('editor', locale, f.shotAlt, f.shotCaption)}
+      <ul class="entries">
         ${rows}
       </ul>`);
 }
@@ -234,7 +256,7 @@ ${header(locale)}
 <main id="main">
 ${hero(c)}
 ${why(c)}
-${features(c)}
+${features(locale)}
 ${ai(c)}
 ${platforms(c)}
 ${faq(c)}
