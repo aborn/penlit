@@ -6,6 +6,7 @@ export default {
   nav: { why: 'Why Penlit', features: 'Features', ai: 'AI', platforms: 'Platforms' },
   navLabel: 'Main',
   langLabel: 'Language',
+  theme: { toDark: 'Switch to dark mode', toLight: 'Switch to light mode' },
   hero: {
     eyebrow: 'A writing app built on Git and Markdown',
     title: 'Turn words into *value*',
@@ -90,6 +91,6 @@ export default {
       { q: 'Can AI tools read my notes on their own?', a: 'Only tools you connect can. The local server listens on your own machine by default, and each request needs a token.' },
     ],
   },
-  footer: { tagline: 'What you write stays yours.', github: 'GitHub' },
+  footer: { github: 'GitHub' },
   notFound: { title: 'Page not found', text: 'This page does not exist.', home: 'Back to home' },
 };

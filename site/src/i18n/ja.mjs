@@ -6,6 +6,7 @@ export default {
   nav: { why: 'Penlit の特長', features: '機能', ai: 'AI', platforms: '対応環境' },
   navLabel: 'メイン',
   langLabel: '言語',
+  theme: { toDark: 'ダークモードに切り替え', toLight: 'ライトモードに切り替え' },
   hero: {
     eyebrow: 'Git と Markdown を土台にしたライティングアプリ',
     title: '言葉を、価値に',
@@ -90,6 +91,6 @@ export default {
       { q: 'AI ツールが勝手にノートを読むことはありますか？', a: '読めるのは、あなたがつないだツールだけです。ローカルサーバーは既定で自分のマシンだけで待ち受け、リクエストごとにトークンが必要です。' },
     ],
   },
-  footer: { tagline: '書いたものは、ずっとあなたのもの。', github: 'GitHub' },
+  footer: { github: 'GitHub' },
   notFound: { title: 'ページが見つかりません', text: 'このページは存在しません。', home: 'ホームへ戻る' },
 };

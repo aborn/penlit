@@ -6,6 +6,7 @@ export default {
   nav: { why: '为什么选笔点', features: '功能', ai: 'AI', platforms: '平台' },
   navLabel: '主导航',
   langLabel: '语言',
+  theme: { toDark: '切换到深色模式', toLight: '切换到浅色模式' },
   hero: {
     eyebrow: '基于 Git 和 Markdown 的写作工具',
     title: '用笔点亮价值',
@@ -90,6 +91,6 @@ export default {
       { q: 'AI 工具会自己读取我的笔记吗？', a: '只有你接入的工具才能读取。本机服务默认只监听你自己的电脑，每次请求都需要令牌。' },
     ],
   },
-  footer: { tagline: '记下的，永远是你的。', github: 'GitHub' },
+  footer: { github: 'GitHub' },
   notFound: { title: '页面不存在', text: '找不到这个页面。', home: '返回首页' },
 };

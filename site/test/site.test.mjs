@@ -38,10 +38,11 @@ test('the home page is English', async () => {
   assert.match(await readFile(dist('index.html'), 'utf8'), /Turn words into <em>value<\/em>/);
 });
 
-test('pages run no scripts and load nothing from other sites', async () => {
+test('pages run only the theme script and load nothing from other sites', async () => {
   for (const locale of LOCALES) {
     const html = await page(locale);
-    assert.doesNotMatch(html, /<script|style="|<iframe/);
+    assert.deepEqual([...html.matchAll(/<script[^>]*>/g)].map(([tag]) => tag), ['<script src="/theme.js">']);
+    assert.doesNotMatch(html, /style="|<iframe/);
     for (const [, url] of html.matchAll(/(?:src|<link rel="stylesheet" href)="([^"]+)"/g)) assert.match(url, /^\//);
   }
   const css = await readFile(dist('styles.css'), 'utf8');
@@ -59,8 +60,18 @@ test('in-page links have a target', async () => {
   }
 });
 
+test('each feature has a specimen', async () => {
+  for (const locale of LOCALES) {
+    assert.equal((await page(locale)).match(/class="specimen"/g).length, locale.copy.features.items.length);
+  }
+});
+
+test('the theme toggle stays hidden until the script is ready', async () => {
+  for (const locale of LOCALES) assert.match(await page(locale), /id="theme-toggle"[^>]* hidden /);
+});
+
 test('local assets exist', async () => {
-  for (const file of ['mark.svg', 'og.png', 'apple-touch-icon.png', 'styles.css', '404.html', 'sitemap.xml', 'robots.txt', '_headers']) {
+  for (const file of ['mark.svg', 'theme.js', 'og.png', 'apple-touch-icon.png', 'styles.css', '404.html', 'sitemap.xml', 'robots.txt', '_headers']) {
     await readFile(dist(file));
   }
 });

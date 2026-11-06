@@ -13,7 +13,7 @@ This repository holds the public side of the project:
 
 ## Website
 
-The site has no dependencies and needs Node.js 20 or later.
+The site has no dependencies and needs Node.js 20 or later. The only script is `public/theme.js`, which remembers the light or dark choice. Everything else, including the animations, is CSS.
 
 ```bash
 cd site

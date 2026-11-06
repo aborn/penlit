@@ -12,6 +12,16 @@ export const LOCALES = [
   { code: 'ja', html: 'ja', path: '/ja/', label: '日本語', name: '日本語', copy: ja },
 ];
 
+/** 功能小样：和语言无关的微型文字样本，顺序对应文案里的 features.items */
+const FEATURE_SPECIMENS = [
+  '<code>**word**</code><span class="sp-arrow">→</span><strong>word</strong>',
+  '<code class="sp-del">− draft</code><code class="sp-add">+ final</code>',
+  '<code>••••••••</code><span class="sp-arrow">→</span><code>AES-256-GCM</code>',
+  '<code>main</code><span class="sp-arrow">→</span><code>feature/notes</code>',
+  '<code>⌘P</code><span class="sp-hit">value</span>',
+  '<code>[x]</code><code>[ ]</code><code>[ ]</code>',
+];
+
 const MCP_TOOLS = ['penlit_search', 'penlit_read_file', 'penlit_patch_file', 'penlit_tasks_list', 'penlit_journal_search'];
 
 const escapeHtml = (text) =>
@@ -50,6 +60,7 @@ function head(locale, { title, description, indexable }) {
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/theme.js"></script>
   <link rel="preload" href="/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
 </head>`;
@@ -67,6 +78,12 @@ function languageSwitch(locale) {
   return `<nav class="langs" aria-label="${escapeHtml(locale.copy.langLabel)}">${links}</nav>`;
 }
 
+function themeToggle(theme) {
+  return `<button id="theme-toggle" class="theme" type="button" hidden aria-pressed="false" aria-label="${escapeHtml(theme.toDark)}" data-to-dark="${escapeHtml(theme.toDark)}" data-to-light="${escapeHtml(theme.toLight)}">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="currentColor"/></svg>
+    </button>`;
+}
+
 function header(locale) {
   const { nav, navLabel } = locale.copy;
   return `<header class="site-header">
@@ -79,6 +96,7 @@ function header(locale) {
       <a href="#platforms">${escapeHtml(nav.platforms)}</a>
     </nav>
     ${languageSwitch(locale)}
+    ${themeToggle(locale.copy.theme)}
   </div>
 </header>`;
 }
@@ -147,7 +165,7 @@ function why({ nav, why: w }) {
 
 function features({ nav, features: f }) {
   const rows = f.items
-    .map((item) => `<li><h3>${escapeHtml(item.title)}</h3><p>${rich(item.text)}</p></li>`)
+    .map((item, i) => `<li><p class="specimen" aria-hidden="true">${FEATURE_SPECIMENS[i]}</p><h3>${escapeHtml(item.title)}</h3><p>${rich(item.text)}</p></li>`)
     .join('\n        ');
   return chapter('features', nav.features, f.title, `<ul class="entries">
         ${rows}
@@ -200,7 +218,7 @@ function footer(locale) {
   return `<footer class="site-footer">
   <div class="wrap bar">
     ${brandLink(locale)}
-    <a href="${REPO_URL}">${escapeHtml(f.github)}</a>
+    <p>© 2026 Penlit<a href="${REPO_URL}">${escapeHtml(f.github)}</a></p>
   </div>
 </footer>`;
 }
